@@ -95,7 +95,8 @@ class SlackClient
     text = if typeof message is 'string' then message else message.text
     attachment = if (text.match(/^https?:\/\/\S+\.(?:jpg|jpe|jpeg|png|gif|bmp|dib)/) or
                    text.match(/^https?:\/\/images.duckduckgo.com\//)) and
-                   !text.match(/https:\/\/files\.slack\.com/)
+                   !text.match(/https:\/\/files\.slack\.com/) and
+                   !msg.match(/https?:\/\/[a-zA-Z0-9\-_]+\.slack\.com\/archive/)
         @robot.logger.debug "Sending to #{envelope.room} as image: #{text}"
         {image_url: text, fallback: text}
       else
