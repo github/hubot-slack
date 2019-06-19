@@ -208,10 +208,13 @@ class SlackClient
       attachments: [attachment]
 
     if typeof message isnt "string"
-      @web.chat.postMessage(room, "", _.defaults(message, options))
+      defaultOptions = _.defaults(message, options)
+      @robot.emit "postMessage", room, "", defaultOptions
+      @web.chat.postMessage(room, "", defaultOptions)
         .catch (error) =>
           @robot.logger.error "SlackClient#send() error: #{error.message}"
     else
+      @robot.emit "postMessage", room, "", options
       @web.chat.postMessage(room, "", options)
         .catch (error) =>
           @robot.logger.error "SlackClient#send() error: #{error.message}"
