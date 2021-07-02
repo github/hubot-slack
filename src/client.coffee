@@ -205,6 +205,7 @@ class SlackClient
       # NOTE: consider building a new (backwards-compatible) format for room which includes the thread_ts.
       # e.g. "#{conversationId} #{thread_ts}" - this would allow a portable way to say the message is in a thread
       thread_ts: envelope.message?.thread_ts,
+      reply_broadcast: envelope.message?.reply_broadcast,
       attachments: [attachment]
 
     if typeof message isnt "string"
